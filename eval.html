@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peer Evaluation System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2d2d2d;
+            color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+
+        .form-container {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 10px;
+            width: 40%;
+        }
+
+        form label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        form input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        form button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ff6600;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #cc5200;
+        }
+
+        .evaluation-form {
+            margin: 50px auto;
+            width: 80%;
+            background-color: #444;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .evaluation-form table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        .evaluation-form table, th, td {
+            border: 1px solid #666;
+        }
+
+        .evaluation-form th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #ff6600;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Admin and User sections */
+        .admin-section,
+        .user-section {
+            margin: 20px auto;
+            width: 80%;
+            background-color: #444;
+            padding: 20px;
+            border-radius: 10px;
+            display: none; /* Initially hidden */
+        }
+
+        .admin-section.active,
+        .user-section.active {
+            display: block; /* Show when active */
+        }
+
+        /* Admin and User specific styles */
+        .admin-section h2 {
+            color: #ff6600;
+        }
+
+        .user-section h2 {
+            color: #00ff66;
+        }
+
+        .evaluation-container {
+            background-color: #555;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+        }
+
+        /* Links for Admin/User Switch */
+        .admin-link,
+        .user-link {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #444;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .admin-link:hover,
+        .user-link:hover {
+            background-color: #333;
+        }
+
+        /* Admin Dashboard Updates */
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            background-color: #555;
+            color: white;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #666;
+        }
+
+        th {
+            background-color: #333;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: white;
+            font-size: 0.85em;
+        }
+
+        .badge-satisfied {
+            background-color: #4CAF50;
+        }
+
+        .badge-neutral {
+            background-color: #FFEB3B;
+            color: black;
+        }
+
+        .badge-dissatisfied {
+            background-color: #F44336;
+        }
+
+        .edit-btn, .delete-btn {
+            padding: 8px 12px;
+            margin: 5px;
+            background-color: #ff6600;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .edit-btn:hover, .delete-btn:hover {
+            background-color: #cc5200;
+        }
+
+        .summary-box {
+            background-color: #555;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .summary-box h3 {
+            margin: 0;
+            padding: 0;
+            font-size: 1.2em;
+        }
+
+        .summary-box p {
+            margin: 10px 0 0;
+            font-size: 1.1em;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Peer Evaluation System</h1>
+    </header>
+
+    <!-- Sign Up & Login Section -->
+    <section class="container">
+        <div class="form-container">
+            <h2>Sign Up</h2>
+            <form action="#user-section">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+
+        <div class="form-container">
+            <h2>Login</h2>
+            <form action="#user-section">
+                <label for="login-username">Username:</label>
+                <input type="text" id="login-username" name="login-username" required>
+
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" name="login-password" required>
+
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Admin/User Toggle Links -->
+    <div style="text-align: center;">
+        <a href="#admin-section" class="admin-link" onclick="document.querySelector('.admin-section').classList.add('active'); document.querySelector('.user-section').classList.remove('active');">Switch to Admin View</a>
+        <a href="#user-section" class="user-link" onclick="document.querySelector('.user-section').classList.add('active'); document.querySelector('.admin-section').classList.remove('active');">Switch to User View</a>
+    </div>
+
+    <!-- Admin Section -->
+    <section id="admin-section" class="admin-section">
+        <h2>Admin Dashboard</h2>
+
+        <!-- Summary of Evaluations -->
+        <div class="summary-box">
+            <h3>Evaluation Summary</h3>
+            <p>Total Evaluations Submitted: <strong>15</strong></p>
+            <p>Average Satisfaction Rating: <strong>3.5 / 5</strong></p>
+        </div>
+
+        <h2>Submitted Peer Evaluations</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Project</th>
+                    <th>Date</th>
+                    <th>Overall Rating</th>
+                    <th>Comments</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Student A</td>
+                    <td>Project A</td>
+                    <td>09/25/2024</td>
+                    <td>
+                        <span class="badge badge-satisfied">Satisfied</span>
+                    </td>
+                    <td>Great participation, but needs to work on discussions.</td>
+                    <td>
+                        <a href="#" class="edit-btn">Edit</a>
+                        <a href="#" class="delete-btn">Delete</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Student B</td>
+                    <td>Project B</td>
+                    <td>09/20/2024</td>
+                    <td>
+                        <span class="badge badge-neutral">Somewhat Satisfied</span>
+                    </td>
+                    <td>Contributed good ideas but lacked enthusiasm.</td>
+                    <td>
+                        <a href="#" class="edit-btn">Edit</a>
+                        <a href="#" class="delete-btn">Delete</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Student C</td>
+                    <td>Project C</td>
+                    <td>09/19/2024</td>
+                    <td>
+                        <span class="badge badge-dissatisfied">Dissatisfied</span>
+                    </td>
+                    <td>Poor participation and little teamwork.</td>
+                    <td>
+                        <a href="#" class="edit-btn">Edit</a>
+                        <a href="#" class="delete-btn">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- User Section -->
+    <section id="user-section" class="user-section">
+        <h2>User Dashboard</h2>
+
+        <!-- Peer Evaluation Form for User -->
+        <h3>Your Peer Evaluation Form</h3>
+        <form class="evaluation-form">
+            <label for="user-student-name">Student Name:</label>
+            <input type="text" id="user-student-name" name="user-student-name" required>
+
+            <label for="user-class">Class:</label>
+            <input type="text" id="user-class" name="user-class" required>
+
+            <label for="user-date">Date:</label>
+            <input type="date" id="user-date" name="user-date" required>
+
+            <h3>Self Evaluation</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Criteria</th>
+                        <th>Not Satisfied</th>
+                        <th>Somewhat Satisfied</th>
+                        <th>Satisfied</th>
+                        <th>Very Satisfied</th>
+                        <th>Comments</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Participation in team activities</td>
+                        <td><input type="radio" name="user-team-participation" value="Not Satisfied"></td>
+                        <td><input type="radio" name="user-team-participation" value="Somewhat Satisfied"></td>
+                        <td><input type="radio" name="user-team-participation" value="Satisfied"></td>
+                        <td><input type="radio" name="user-team-participation" value="Very Satisfied"></td>
+                        <td><input type="text" name="comments-participation" placeholder="Add comments"></td>
+                    </tr>
+                    <tr>
+                        <td>Enthusiasm to generate new ideas</td>
+                        <td><input type="radio" name="user-enthusiasm" value="Not Satisfied"></td>
+                        <td><input type="radio" name="user-enthusiasm" value="Somewhat Satisfied"></td>
+                        <td><input type="radio" name="user-enthusiasm" value="Satisfied"></td>
+                        <td><input type="radio" name="user-enthusiasm" value="Very Satisfied"></td>
+                        <td><input type="text" name="comments-enthusiasm" placeholder="Add comments"></td>
+                    </tr>
+                    <tr>
+                        <td>Relationships with team members</td>
+                        <td><input type="radio" name="user-relationships" value="Not Satisfied"></td>
+                        <td><input type="radio" name="user-relationships" value="Somewhat Satisfied"></td>
+                        <td><input type="radio" name="user-relationships" value="Satisfied"></td>
+                        <td><input type="radio" name="user-relationships" value="Very Satisfied"></td>
+                        <td><input type="text" name="comments-relationships" placeholder="Add comments"></td>
+                    </tr>
+                    <tr>
+                        <td>Participation in discussions</td>
+                        <td><input type="radio" name="user-discussions" value="Not Satisfied"></td>
+                        <td><input type="radio" name="user-discussions" value="Somewhat Satisfied"></td>
+                        <td><input type="radio" name="user-discussions" value="Satisfied"></td>
+                        <td><input type="radio" name="user-discussions" value="Very Satisfied"></td>
+                        <td><input type="text" name="comments-discussions" placeholder="Add comments"></td>
+                    </tr>
+                    <tr>
+                        <td>Taking responsibility</td>
+                        <td><input type="radio" name="user-responsibility" value="Not Satisfied"></td>
+                        <td><input type="radio" name="user-responsibility" value="Somewhat Satisfied"></td>
+                        <td><input type="radio" name="user-responsibility" value="Satisfied"></td>
+                        <td><input type="radio" name="user-responsibility" value="Very Satisfied"></td>
+                        <td><input type="text" name="comments-responsibility" placeholder="Add comments"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button type="submit">Submit Evaluation</button>
+        </form>
+    </section>
+
+</body>
+</html>
+
+
